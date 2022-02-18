@@ -1,0 +1,43 @@
+DROP TABLE IF EXISTS train ;
+
+CREATE TABLE IF NOT EXISTS train (
+    tain_number INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    source TEXT NOT NULL,
+    destination TEXT NOT NULL,
+    premium_tkt_price REAL NOT NULL,
+    general_tkt_price REAL NOT NULL
+);
+
+DROP TABLE IF EXISTS passenger ;
+
+CREATE TABLE IF NOT EXISTS passenger (
+    passenger_id INTEGER PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    middle_name TEXT,
+    last_name TEXT NOT NULL,
+    address TEXT NOT NULL,
+    reservation_status TEXT NOT NULL,
+    tkt_category TEXT NOT NULL,
+    tain_number INTEGER,
+    FOREIGN KEY(tain_number) REFERENCES train(tain_number)
+);
+
+INSERT INTO train VALUES (1234,"SATHABDHI EXPRESS","MAA","HYD",12.34,8.22);
+INSERT INTO train VALUES (2345,"RAJADHANI EXPRESS","DEL","BOM",12.34,8.22);
+INSERT INTO train VALUES (3456,"SAMPARKRANTHI EXPRESS","DEL","MAA",12.34,8.22);
+INSERT INTO train VALUES (4567,"DALLAS EXPRESS","DAL","ALR",12.34,8.22);
+INSERT INTO train VALUES (5678,"CHENNAI EXPRESS","DEL","MAA",12.34,8.22);
+INSERT INTO train VALUES (6789,"RAYALASEEMA EXPRESS","KDP","MAA",12.34,8.22);
+INSERT INTO train VALUES (7890,"TELANGANA EXPRESS","HYD","MAA",12.34,8.22);
+
+
+INSERT INTO passenger VALUES (1001,"Pramodh","D", "Jajala","BHAKARAPETA","CNF","PREMIUM",1234);
+INSERT INTO passenger VALUES (1002,"Trivedh","P", "Jajala","BHAKARAPETA","CNF","PREMIUM",1234);
+INSERT INTO passenger VALUES (1003,"Koushik","D", "Jajala","BHAKARAPETA","CNF","PREMIUM",1234);
+INSERT INTO passenger VALUES (1004,"Jack","D", "Daniels","BHAKARAPETA","CNF","PREMIUM",1234);
+INSERT INTO passenger VALUES (1005,"Daniel","D", "Jacob","BHAKARAPETA","CNF","PREMIUM",1234);
+INSERT INTO passenger VALUES (1006,"Shree","D", "Shan","BHAKARAPETA","CNF","PREMIUM",1234);
+INSERT INTO passenger VALUES (1007,"Saahith","D", "Shake","BHAKARAPETA","CNF","PREMIUM",1234);
+
+    
