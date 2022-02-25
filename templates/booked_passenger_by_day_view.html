@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="../static/styles.css">
+<body>
+<h3>Booked Passenger Details By Day</h3>
+{% if records == None %}
+<h4>Records Not Available</h4>
+{% else %}
+<table class="box">
+    <tr>
+        <th>train_number</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>ssn</th>
+        <th>ticket_status</th>
+    </tr>
+    {% for item in records %}
+    <tr>
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>{{item[2]}}</td>
+        <td>{{item[3]}}</td>
+        <td>{{item[4]}}</td>
+    </tr>
+    {%endfor%}
+</table>
+{% endif %}
+</body>
+</html>

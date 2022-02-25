@@ -1,0 +1,11 @@
+.box,th{
+    border: 1px solid black;
+    margin:.5rem;
+    padding: 0.3rem;
+}
+
+td{
+    text-align: center;
+}
+
+

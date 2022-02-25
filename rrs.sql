@@ -1,43 +1,74 @@
-DROP TABLE IF EXISTS train ;
+DROP TABLE IF EXISTS booked;
 
-CREATE TABLE IF NOT EXISTS train (
-    tain_number INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    source TEXT NOT NULL,
-    destination TEXT NOT NULL,
-    premium_tkt_price REAL NOT NULL,
-    general_tkt_price REAL NOT NULL
+DROP TABLE IF EXISTS passenger;
+
+DROP TABLE IF EXISTS train_status;
+
+DROP TABLE IF EXISTS train;
+
+DROP TABLE IF EXISTS train_availability;
+
+CREATE TABLE train (
+    train_number        INTEGER NOT NULL
+                                PRIMARY KEY,
+    train_name          TEXT    NOT NULL,
+    premium_fare        REAL    NOT NULL,
+    general_fare        REAL    NOT NULL,
+    source_station      TEXT    NOT NULL,
+    destination_station TEXT    NOT NULL
 );
 
-DROP TABLE IF EXISTS passenger ;
-
-CREATE TABLE IF NOT EXISTS passenger (
-    passenger_id INTEGER PRIMARY KEY,
-    first_name TEXT NOT NULL,
-    middle_name TEXT,
-    last_name TEXT NOT NULL,
-    address TEXT NOT NULL,
-    reservation_status TEXT NOT NULL,
-    tkt_category TEXT NOT NULL,
-    tain_number INTEGER,
-    FOREIGN KEY(tain_number) REFERENCES train(tain_number)
+CREATE TABLE train_availability (
+    train_number INTEGER NOT NULL,
+    available_on TEXT    NOT NULL,
+    PRIMARY KEY (
+        train_number,
+        available_on
+    ),
+    FOREIGN KEY (
+        train_number
+    )
+    REFERENCES train (train_number) 
 );
 
-INSERT INTO train VALUES (1234,"SATHABDHI EXPRESS","MAA","HYD",12.34,8.22);
-INSERT INTO train VALUES (2345,"RAJADHANI EXPRESS","DEL","BOM",12.34,8.22);
-INSERT INTO train VALUES (3456,"SAMPARKRANTHI EXPRESS","DEL","MAA",12.34,8.22);
-INSERT INTO train VALUES (4567,"DALLAS EXPRESS","DAL","ALR",12.34,8.22);
-INSERT INTO train VALUES (5678,"CHENNAI EXPRESS","DEL","MAA",12.34,8.22);
-INSERT INTO train VALUES (6789,"RAYALASEEMA EXPRESS","KDP","MAA",12.34,8.22);
-INSERT INTO train VALUES (7890,"TELANGANA EXPRESS","HYD","MAA",12.34,8.22);
+CREATE TABLE passenger (
+    first_name TEXT    NOT NULL,
+    last_name  TEXT    NOT NULL,
+    address    TEXT    NOT NULL,
+    city       TEXT    NOT NULL,
+    county     TEXT    NOT NULL,
+    phone      TEXT    NOT NULL,
+    ssn        INTEGER NOT NULL
+                       PRIMARY KEY,
+    bdate      DATE    NOT NULL
+);
 
+CREATE TABLE train_status (
+    train_date              DATE    NOT NULL,
+    train_name              TEXT    NOT NULL,
+    premium_seats_available INTEGER CHECK (premium_seats_available >= 0 AND 
+                                           premium_seats_available <= 10),
+    gen_seats_available     INTEGER CHECK (gen_seats_available >= 0 AND 
+                                           gen_seats_available <= 10),
+    premium_seats_occupied  INTEGER CHECK (premium_seats_occupied >= 0 AND 
+                                           premium_seats_occupied <= premium_seats_available),
+    gen_seats_occupied      INTEGER CHECK (gen_seats_occupied >= 0 AND 
+                                           gen_seats_occupied <= gen_seats_available),
+    PRIMARY KEY (
+        train_date,
+        train_name
+    )
+);
 
-INSERT INTO passenger VALUES (1001,"Pramodh","D", "Jajala","BHAKARAPETA","CNF","PREMIUM",1234);
-INSERT INTO passenger VALUES (1002,"Trivedh","P", "Jajala","BHAKARAPETA","CNF","PREMIUM",1234);
-INSERT INTO passenger VALUES (1003,"Koushik","D", "Jajala","BHAKARAPETA","CNF","PREMIUM",1234);
-INSERT INTO passenger VALUES (1004,"Jack","D", "Daniels","BHAKARAPETA","CNF","PREMIUM",1234);
-INSERT INTO passenger VALUES (1005,"Daniel","D", "Jacob","BHAKARAPETA","CNF","PREMIUM",1234);
-INSERT INTO passenger VALUES (1006,"Shree","D", "Shan","BHAKARAPETA","CNF","PREMIUM",1234);
-INSERT INTO passenger VALUES (1007,"Saahith","D", "Shake","BHAKARAPETA","CNF","PREMIUM",1234);
-
-    
+CREATE TABLE booked (
+    ssn          INTEGER NOT NULL,
+    train_number INTEGER NOT NULL,
+    ticket_type  TEXT    CHECK (ticket_type = "Premium" OR 
+                                ticket_type = "General"),
+    status       TEXT    CHECK (status = "WaitL" OR 
+                                status = "Booked"),
+    PRIMARY KEY (
+        ssn,
+        train_number
+    )
+);

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css">
+    <title>RRS</title>
+</head>
+<body>
+<h3>Passenger Train Details</h3>
+<form action="/get_booked_trains" method="POST" class="box">
+    <label for="fname">FirstName: </label>
+    <input name="fname" type="text" placeholder=" Enter First Name" id="fname" required/> &emsp;
+    <label for="lname">LastName: </label>
+    <input name="lname" type="text" placeholder="Enter Last Name" id="lname" required/><br/><br/>
+    <input type="submit" value="Get Trains">
+</form>
+
+<h3>Booked Passenger Details By Day</h3>
+<form action="/get_booked_passengers_by_day" method="POST">
+    <label for="days">select a day:</label>
+    <select name="day" id="days">
+        <option value="sunday">Sunday</option>
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+        <option value="wednesday">Wednesday</option>
+        <option value="thursday">Thursday</option>
+        <option value="friday">Friday</option>
+        <option value="saturday">Saturday</option>
+    </select>
+    <input type="submit">
+</form>
+
+<h3>Passenger Details</h3>
+<form action="/get_passenger_details" method="POST" class="box">
+    <label for="llimit">Passenger Age is </label>
+    <input name="llimit" type="number" placeholder=" Enter lower range of age " id="llimit" required/> &emsp; to
+    <input name="ulimit" type="number" placeholder="Enter upper range of age" id="ulimit" required/><br/><br/>
+    <input type="submit" value="Get Details">
+</form>
+<h3>Passenger Count</h3>
+<form action="/get_passenger_count" method="GET">
+    <input type="submit" value="Show_Passenger_Count">
+</form>
+<h3>Confirmed Passengers in Train</h3>
+<form action="/get_confirmed_passengers" method="POST" class="box">
+    <label>Train Name : </label>
+    <input name="train_name" type="text" placeholder=" Enter train name " id="train_name" required/>
+    <input type="submit" value="Get Details">
+</form>
+
+<h3>Cancel Ticket</h3>
+<form action="/cancel_ticket" method="POST" class="box">
+    <label>Enter ssn : </label>
+    <input name="ssn" type="text" placeholder=" Enter user ssn number " id="ssn" required/>
+    <label>Enter train number : </label>
+    <input name="train_number" type="text" placeholder=" Enter train number " id="train_number" required/>
+    <input type="submit" value="Cancel Ticket">
+</form>
+</body>
+</html>
